@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.2.0" use-changelog="false" max-obj-count="8"
+	 gen-disabled-objs-code="false" show-sys-schemas-rects="true"
+	 last-position="0,-47" last-zoom="1" scene-rect="0,-47,1599.77,1167.12"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<schema name="larp_manager" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<table name="users" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="80" y="0"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="password" not-null="true">
+		<type name="varchar" length="512"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="1024"/>
+	</column>
+	<column name="phone">
+		<type name="varchar" length="128"/>
+	</column>
+	<column name="player_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<column name="gm_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<constraint name="users_pk" type="pk-constr" table="larp_manager.users">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="games" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="600" y="0"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="start_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="end_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="additional_details_schema">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="gm_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<column name="player_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<constraint name="games_pk" type="pk-constr" table="larp_manager.games">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="gms" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="100" y="520"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="user_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="game_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="gms_pk" type="pk-constr" table="larp_manager.gms">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="players" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="400" y="780"/>
+	<column name="id">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="game_id">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="user_id">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="payment_status">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="additional_details">
+		<type name="jsonb" length="0"/>
+	</column>
+</table>
+
+<table name="characters" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="780" y="500"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="game_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="player_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="256"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="group_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<column name="plot_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<constraint name="character_pk" type="pk-constr" table="larp_manager.characters">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="email_ix" table="larp_manager.users"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="email"/>
+		</idxelement>
+</index>
+
+<index name="user_name_ix" table="larp_manager.users"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="name"/>
+		</idxelement>
+</index>
+
+<index name="phone_ix" table="larp_manager.users"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="phone"/>
+		</idxelement>
+</index>
+
+<index name="character_name_ix" table="larp_manager.characters"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="name"/>
+		</idxelement>
+</index>
+
+<table name="character_groups" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="1260" y="120"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="game_id">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="256"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="max_characters">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="min_characters">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="character_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<column name="plot_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<constraint name="character_groups_pk" type="pk-constr" table="larp_manager.character_groups">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="char_group_ix" table="larp_manager.character_groups"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="name"/>
+		</idxelement>
+</index>
+
+<relationship name="many_character_groups_has_many_characters" type="relnn" layers="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 fk-idx-pattern="{gt}_idx"
+	 custom-color="#4af362"
+	 src-table="larp_manager.character_groups"
+	 dst-table="larp_manager.characters"
+	 src-required="false" dst-required="false"
+	 table-name="many_character_groups_has_many_characters"/>
+
+<index name="char_game_id_ix" table="larp_manager.character_groups"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="game_id"/>
+		</idxelement>
+</index>
+
+<index name="char_group_name_ix" table="larp_manager.character_groups"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="name"/>
+		</idxelement>
+</index>
+
+<table name="plots" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="larp_manager"/>
+	<role name="postgres"/>
+	<position x="1240" y="520"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="256"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="character_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<column name="character_group_ids">
+		<type name="uuid" length="0" dimension="1"/>
+	</column>
+	<constraint name="plots_pk" type="pk-constr" table="larp_manager.plots">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="plot_name_ix" table="larp_manager.plots"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="name"/>
+		</idxelement>
+</index>
+
+<relationship name="many_plots_has_many_characters" type="relnn" layers="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 fk-idx-pattern="{gt}_idx"
+	 custom-color="#1679c5"
+	 src-table="larp_manager.plots"
+	 dst-table="larp_manager.characters"
+	 src-required="false" dst-required="false"
+	 table-name="many_plots_has_many_characters"/>
+
+<relationship name="many_plots_has_many_character_groups" type="relnn" layers="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 fk-idx-pattern="{gt}_idx"
+	 custom-color="#fabe40"
+	 src-table="larp_manager.plots"
+	 dst-table="larp_manager.character_groups"
+	 src-required="false" dst-required="false"
+	 table-name="many_plots_has_many_character_groups"/>
+
+<constraint name="user_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.users" table="larp_manager.gms">
+	<columns names="user_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="gm_game_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.games" table="larp_manager.gms">
+	<columns names="game_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="game_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.games" table="larp_manager.players">
+	<columns names="game_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="user_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.users" table="larp_manager.players">
+	<columns names="user_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="game_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.games" table="larp_manager.characters">
+	<columns names="game_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="player_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.players" table="larp_manager.characters">
+	<columns names="player_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="character_game_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="larp_manager.games" table="larp_manager.character_groups">
+	<columns names="game_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_gms_users" type="relfk" layers="0"
+	 src-table="larp_manager.gms"
+	 dst-table="larp_manager.users" reference-fk="user_id"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_gms_games" type="relfk" layers="0"
+	 src-table="larp_manager.gms"
+	 dst-table="larp_manager.games" reference-fk="gm_game_id"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-31.9539" y="34.3776"/>
+	</label>
+</relationship>
+
+<relationship name="rel_players_games" type="relfk" layers="0"
+	 src-table="larp_manager.players"
+	 dst-table="larp_manager.games" reference-fk="game_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_players_users" type="relfk" layers="0"
+	 src-table="larp_manager.players"
+	 dst-table="larp_manager.users" reference-fk="user_id"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="92.5537" y="38.2525"/>
+	</label>
+</relationship>
+
+<relationship name="rel_character_games" type="relfk" layers="0"
+	 src-table="larp_manager.characters"
+	 dst-table="larp_manager.games" reference-fk="game_id"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_character_players" type="relfk" layers="0"
+	 src-table="larp_manager.characters"
+	 dst-table="larp_manager.players" reference-fk="player_id"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_character_groups_games" type="relfk" layers="0"
+	 src-table="larp_manager.character_groups"
+	 dst-table="larp_manager.games" reference-fk="character_game_id"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

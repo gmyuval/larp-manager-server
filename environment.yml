@@ -1,0 +1,9 @@
+name: larp-manager-server
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.13.5
+  - pip >=25.0
+  - pip:
+      - -r ./requirements.txt
+      - -r ./requirements-dev.txt
