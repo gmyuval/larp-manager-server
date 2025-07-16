@@ -59,6 +59,9 @@ docs = [
     "mkdocstrings[python]>=0.23.0",
 ]
 
+[tool.setuptools]
+packages = {find = {where = ["src"]}}
+
 [tool.black]
 line-length = 88
 target-version = ['py313']
@@ -82,7 +85,7 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["app"]
+known_first_party = ["larp_manager_server"]
 known_third_party = ["fastapi", "sqlalchemy", "pydantic", "alembic"]
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
@@ -144,7 +147,7 @@ markers = [
 asyncio_mode = "auto"
 
 [tool.coverage.run]
-source = ["app"]
+source = ["larp_manager_server"]
 omit = [
     "*/tests/*",
     "*/test_*",
